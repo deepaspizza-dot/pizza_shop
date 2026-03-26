@@ -1,0 +1,13 @@
+<h1>Payment Page 💳</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <h3>Select Payment Method:</h3>
+
+    <input type="radio" name="method" required> UPI<br>
+    <input type="radio" name="method"> Credit Card<br>
+    <input type="radio" name="method"> Cash on Delivery<br><br>
+
+    <button type="submit">Pay Now ✅</button>
+</form>

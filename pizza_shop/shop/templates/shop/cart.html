@@ -1,0 +1,40 @@
+<h1>Your Cart 🛒</h1>
+
+{% if items %}
+    {% for item in items %}
+        <div>
+            <h3>{{ item.name }} ({{ item.size }})</h3>
+
+            <p>Price: ₹{{ item.price }}</p>
+
+            <!-- ➕➖ Quantity Controls -->
+            <a href="{% url 'update_cart' item.key 'decrease' %}">
+                <button>-</button>
+            </a>
+
+            <span> {{ item.quantity }} </span>
+
+            <a href="{% url 'update_cart' item.key 'increase' %}">
+                <button>+</button>
+            </a>
+
+            <p>Total: ₹{{ item.total }}</p>
+
+            <!-- ❌ Remove -->
+            <a href="{% url 'remove_from_cart' item.key %}">
+                <button>Remove ❌</button>
+            </a>
+
+            <hr>
+        </div>
+    {% endfor %}
+
+    <h2>Grand Total: ₹{{ total }}</h2>
+
+    <a href="{% url 'checkout' %}">
+        <button>Proceed to Checkout 📦</button>
+    </a>
+
+{% else %}
+    <h3>Your cart is empty 😢</h3>
+{% endif %}

@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu - Deepa's Pizza Shop</title>
+
+    <style>
+        body {
+            background-image: url("/media/menu-bg.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- 🔴 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+        <a class="navbar-brand" href="/">🍕 Deepa's Pizza</a>
+
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/menu/">Menu</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+
+            <!-- 🛒 CART LINK -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart' %}">Cart 🛒</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 🍕 MENU SECTION -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Our Pizzas 🍕</h2>
+
+    <div class="row">
+        {% for pizza in pizzas %}
+        <div class="col-md-4 mb-4">
+            <div class="card bg-light text-dark shadow">
+                <div class="card-body text-center">
+
+                    <!-- Pizza Name -->
+                    <h5 class="card-title">{{ pizza.name }}</h5>
+
+                    <!-- Prices -->
+                    <p>
+                        Small: ₹{{ pizza.small_price }} |
+                        Medium: ₹{{ pizza.medium_price }} |
+                        Large: ₹{{ pizza.large_price }}
+                    </p>
+
+                    <!-- 🛒 Add to Cart -->
+                    <form method="POST" action="{% url 'add_to_cart' pizza.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success mb-2 w-100">
+                            Add to Cart 🛒
+                        </button>
+                    </form>
+
+                    <!-- Order Button -->
+                    <a href="{% url 'order_pizza' pizza.id %}" class="btn btn-danger w-100">
+                        Order Now
+                    </a>
+
+                    <form method="POST" action="{% url 'add_to_cart' pizza.id %}">
+    {% csrf_token %}
+
+    <select name="size" class="form-select mb-2" required>
+        <option value="Small">Small - ₹{{ pizza.small_price }}</option>
+        <option value="Medium" selected>Medium - ₹{{ pizza.medium_price }}</option>
+        <option value="Large">Large - ₹{{ pizza.large_price }}</option>
+    </select>
+
+    <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" required>
+
+    <button type="submit" class="btn btn-success w-100">
+        Add to Cart 🛒
+    </button>
+</form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Success</title>
+</head>
+<body style="text-align:center; margin-top:50px;">
+
+    <h1>✅ Order Placed Successfully!</h1>
+    <h2>Thank you {{ name }} 🍕</h2>
+
+    <p><b>Phone:</b> {{ phone }}</p>
+    <p><b>Address:</b> {{ address }}</p>
+
+    <h3>🛒 Ordered Items</h3>
+
+    <table border="1" style="margin:auto; padding:10px;">
+        <tr>
+            <th>Pizza</th>
+            <th>Qty</th>
+            <th>Price</th>
+        </tr>
+
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.qty }}</td>
+            <td>₹{{ item.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Total Paid: ₹{{ total }}</h2>
+
+    <p>Your pizza will be delivered soon 🚚</p>
+
+    <a href="/menu/">
+        <button>Back to Menu 🍕</button>
+    </a>
+    <a href="{% url 'invoice' %}">
+    <button>Download Invoice PDF 🧾</button>
+</a>
+
+</body>
+</html>
